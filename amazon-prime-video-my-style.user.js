@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Amazon Prime Video My Style
 // @namespace    https://github.com/hirohiro716/
-// @version      1.0.0
+// @version      1.0.1
 // @description  Fix Amazon Prime Video styles.
 // @author       hiro
 // @match        https://www.amazon.co.jp/gp/video/*
@@ -29,15 +29,19 @@ let fixBrowser = () => {
         article.addEventListener("click", (event) => {
             const a = article.querySelector("a");
             const href = a.getAttribute("href");
-            if (event.ctrlKey) {
+            if (event.ctrlKey || event.button === 1) {
                 window.open(href, "_blank", "noopener,noreferrer");
+                event.preventDefault();
                 return;
             }
-            if (event.shiftKey) {
-                window.open(href, "_blank", "noopener,noreferrer,width=" + window.innerWidth + "px,height=" + window.innerHeight + "px");
-                return;
+            if (event.button === 0) {
+                event.preventDefault();
+                if (event.shiftKey) {
+                    window.open(href, "_blank", "noopener,noreferrer,width=" + window.innerWidth + "px,height=" + window.innerHeight + "px");
+                    return;
+                }
+                window.location.href = href;
             }
-            window.location.href = href;
         });
         article.style.transition = "transform 0.2s ease-out";
         article.addEventListener("mouseenter", () => {
