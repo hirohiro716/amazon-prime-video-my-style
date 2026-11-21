@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Amazon Prime Video My Style
 // @namespace    https://github.com/hirohiro716/
-// @version      1.0.1
+// @version      1.0.2
 // @description  Fix Amazon Prime Video styles.
 // @author       hiro
 // @match        https://www.amazon.co.jp/gp/video/*
@@ -26,7 +26,7 @@ let fixBrowser = () => {
             continue;
         }
         article.setAttribute(addedAnchorEvent, addedAnchorEvent);
-        article.addEventListener("click", (event) => {
+        article.addEventListener("mousedown", (event) => {
             const a = article.querySelector("a");
             const href = a.getAttribute("href");
             if (event.ctrlKey || event.button === 1) {
