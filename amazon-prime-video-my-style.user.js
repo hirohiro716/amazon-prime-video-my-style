@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Amazon Prime Video My Style
 // @namespace    https://github.com/hirohiro716/
-// @version      1.1.0
+// @version      1.1.2
 // @description  Fix Amazon Prime Video styles.
 // @author       hiro
 // @match        https://www.amazon.co.jp/gp/video/*
@@ -57,14 +57,20 @@ let fixBrowser = () => {
 setInterval(fixBrowser, 500);
 
 let fixPlayer = () => {
-    const player = document.querySelector("#dv-web-player video");
+    const player = document.querySelector("#dv-web-player");
     if (player === null) {
         return;
     }
-    const videoHeight = player.videoHeight;
+    const video = player.querySelector("video");
+    if (video === null) {
+        return;
+    }
+    const videoHeight = video.videoHeight;
     if (videoHeight === 0) {
         return;
     }
-    player.style.marginTop = "calc(" + ((window.innerHeight - videoHeight) / 2 * -1) + "px - 5em)";
+    player.style.height = "calc(" + videoHeight + "px - 10em)";
+    video.style.backgroundColor = "#000";
+    video.style.paddingBottom = window.innerHeight + "px";
 };
 setInterval(fixPlayer, 500);
